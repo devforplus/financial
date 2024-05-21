@@ -1,0 +1,90 @@
+<script lang="ts">
+  import { totalNumberStore } from "../lib/components/store";
+  import { onMount } from "svelte";
+
+  type Tag = "월급" | "용돈" | "기타";
+
+  interface Data {
+    /** 생성 시간 */
+    date: string;
+    /** 액수 */
+    money: number;
+    tag: Tag;
+    /** 비고 */
+    description: string;
+    /**총 금액*/
+    totalmoney: number;
+  }
+
+  let datas: Data[] = [];
+  let selectedOption: "" | "월급" | "용돈" | "기타" = ""; // 선택된 옵션을 저장할 변수
+  let incomeNumber: number;
+  let totalNumber = $totalNumberStore;
+
+  // 컴포넌트가 처음 로드될 때 실행되는 함수
+  // onMount(() => {
+  //   totalNumberStore.set(0); // totalNumber 초기화
+  //   totalNumber = 0;
+  // });
+
+  //수입 지출 계산하는 함수
+  function calculate() {
+    totalNumber += incomeNumber;
+    totalNumberStore.set(totalNumber);
+  }
+
+  // 선택된 옵션과 현재 날짜 및 시간을 배열에 추가하는 함수
+  function addSelectedOption() {
+    // 정수 여부 검증
+    if (!Number.isSafeInteger(incomeNumber)) {
+      window.alert("수익을 숫자로 입력해주세요!");
+      return;
+    }
+
+    if (selectedOption.length === 0) {
+      window.alert("옵션을 선택해주세요!");
+      return;
+    }
+
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = ("0" + (today.getMonth() + 1)).slice(-2);
+    const day = ("0" + today.getDate()).slice(-2);
+    /**현재 시간 정보*/
+    const currentTime = year + "-" + month + "-" + day;
+
+    datas = [
+      ...datas,
+      {
+        date: currentTime,
+        description: "",
+        tag: selectedOption || "기타",
+        money: incomeNumber,
+        totalmoney: totalNumber,
+      },
+    ];
+    calculate();
+
+    selectedOption = ""; // 선택 필드 초기화
+  }
+</script>
+
+<div class="mx-16">
+  <input type="number" placeholder="금액" bind:value={incomeNumber} />
+
+  <select bind:value={selectedOption}>
+    <option value="" disabled>옵션 선택</option>
+    <option value="월급">월급</option>
+    <option value="용돈">용돈</option>
+    <option value="기타">기타</option>
+  </select>
+  <button on:click={addSelectedOption}>추가</button>
+
+  <ul>
+    {#each datas as { date, description, tag, money, totalmoney }}
+      <li>
+        <p>{date} : 수입 {money}원 {tag} {description} 총액 : {totalmoney}</p>
+      </li>
+    {/each}
+  </ul>
+</div>
