@@ -6,16 +6,20 @@
     NavUl,
     NavLi,
   } from "flowbite-svelte";
-
-  import { goto } from "$app/navigation";
 </script>
 
 <Navbar let:NavContainer color="primary">
-  <NavContainer class="px-5 py-2 bg-white border rounded-lg dark:bg-gray-600">
+  <NavContainer class="border px-5 py-2 rounded-lg bg-white dark:bg-gray-600">
+    <NavBrand href="/">
+      <span
+        class="self-center whitespace-nowrap text-xl font-semibold dark:text-white"
+        >가계부</span
+      >
+    </NavBrand>
     <NavHamburger />
     <NavUl>
-      <NavLi on:click={() => goto("/")}>Home</NavLi>
-      <NavLi on:click={() => goto("/expense")}>Expense</NavLi>
+      <NavLi href="/">Home</NavLi>
+      <NavLi href="/expense">Expense</NavLi>
     </NavUl>
   </NavContainer>
 </Navbar>

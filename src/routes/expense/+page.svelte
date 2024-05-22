@@ -1,6 +1,5 @@
 <script lang="ts">
   import { totalNumberStore } from "$lib/components/store";
-  import { onMount } from "svelte";
   import { Button } from "flowbite-svelte";
 
   type Tag = "월급" | "용돈" | "기타";
@@ -71,14 +70,14 @@
 </script>
 
 <div class="mx-16">
-  <input type="number" placeholder="금액" bind:value={incomeNumber} />
+  <input type="number" placeholder="지출 금액" bind:value={incomeNumber} />
   <select bind:value={selectedOption}>
     <option value="" disabled>옵션 선택</option>
     <option value="월급">식사</option>
     <option value="용돈">교통</option>
     <option value="기타">기타</option>
   </select>
-  <Button color="blue" pill on:click={addSelectedOption}>추가</Button>
+  <Button color="blue" on:click={addSelectedOption}>추가</Button>
 </div>
 <ul>
   {#each datas as { date, description, tag, money, totalmoney }}
