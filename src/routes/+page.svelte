@@ -1,6 +1,7 @@
 <script lang="ts">
   import { totalNumberStore } from "../lib/components/store";
   import { Button } from "flowbite-svelte";
+  import Chart from "$lib/components/chart.svelte";
 
   type Tag = "월급" | "용돈" | "기타";
 
@@ -71,6 +72,7 @@
   }
 </script>
 
+<Chart />
 <div class="mx-16">
   <input type="number" placeholder="수입 금액" bind:value={incomeNumber} />
 
