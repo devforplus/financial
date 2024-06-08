@@ -66,9 +66,8 @@
   }
 </script>
 
-<Chart />
 <div class="mx-16">
-  <DateInput bind:value={dates}></DateInput>
+  <DateInput bind:value={dates} showTime={false}></DateInput>
   <input type="number" placeholder="수입 금액" bind:value={incomeNumber} />
   <select bind:value={selectedOption}>
     <option value="" disabled>옵션 선택</option>
