@@ -2,12 +2,13 @@
   import { totalNumberStore } from "../lib/components/store";
   import { Button } from "flowbite-svelte";
   import Chart from "$lib/components/chart.svelte";
+  import { DateInput } from "date-picker-svelte";
 
   type Tag = "월급" | "용돈" | "기타";
 
   interface Data {
     /** 생성 시간 */
-    date: string;
+    date: any;
     /** 액수 */
     money: number;
     tag: Tag;
@@ -16,7 +17,7 @@
     /**총 금액*/
     totalmoney: number;
   }
-
+  let dates = new Date();
   let datas: Data[] = [];
   let selectedOption: "" | "월급" | "용돈" | "기타" = ""; // 선택된 옵션을 저장할 변수
   let incomeNumber: number;
@@ -50,17 +51,10 @@
 
     calculate();
 
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = ("0" + (today.getMonth() + 1)).slice(-2);
-    const day = ("0" + today.getDate()).slice(-2);
-    /**현재 시간 정보*/
-    const currentTime = year + "-" + month + "-" + day;
-
     datas = [
       ...datas,
       {
-        date: currentTime,
+        date: dates,
         description: "",
         tag: selectedOption || "기타",
         money: incomeNumber,
@@ -74,8 +68,8 @@
 
 <Chart />
 <div class="mx-16">
+  <DateInput bind:value={dates}></DateInput>
   <input type="number" placeholder="수입 금액" bind:value={incomeNumber} />
-
   <select bind:value={selectedOption}>
     <option value="" disabled>옵션 선택</option>
     <option value="월급">월급</option>
