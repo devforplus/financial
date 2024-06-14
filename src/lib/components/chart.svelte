@@ -23,11 +23,6 @@
         ],
       },
       options: {
-        layout: {
-          padding: {
-            left: 50,
-          },
-        },
         scales: {
           y: {
             beginAtZero: true,
