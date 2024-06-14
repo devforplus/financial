@@ -64,20 +64,34 @@
 </script>
 
 <div class="mx-16">
-  <DateInput bind:value={date}></DateInput>
-  <input type="number" placeholder="지출 금액" bind:value={incomeNumber} />
-  <select bind:value={selectedOption}>
-    <option value="" disabled>옵션 선택</option>
-    <option value="월급">식사</option>
-    <option value="용돈">교통</option>
-    <option value="기타">기타</option>
-  </select>
-  <Button color="blue" on:click={addSelectedOption}>추가</Button>
+  <div class="input-group">
+    <DateInput bind:value={date}></DateInput>
+    <input type="number" placeholder="지출 금액" bind:value={incomeNumber} />
+    <select bind:value={selectedOption}>
+      <option value="" disabled>옵션 선택</option>
+      <option value="월급">식사</option>
+      <option value="용돈">교통</option>
+      <option value="기타">기타</option>
+    </select>
+    <Button color="blue" on:click={addSelectedOption}>추가</Button>
+  </div>
+  <ul>
+    {#each datas as { date, description, tag, money, totalmoney }}
+      <li>
+        <p>{date} : 지출 {money}원 {tag} {description} 총액 : {totalmoney}</p>
+      </li>
+    {/each}
+  </ul>
 </div>
-<ul>
-  {#each datas as { date, description, tag, money, totalmoney }}
-    <li>
-      <p>{date} : 지출 {money}원 {tag} {description} 총액 : {totalmoney}</p>
-    </li>
-  {/each}
-</ul>
+
+<style>
+  .input-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .input-group > * {
+    margin: 0;
+  }
+</style>
