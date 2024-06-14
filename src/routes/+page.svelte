@@ -66,6 +66,8 @@
   }
 </script>
 
+<Chart />
+
 <div class="mx-16">
   <DateInput bind:value={dates} showTime={false}></DateInput>
   <input type="number" placeholder="수입 금액" bind:value={incomeNumber} />
