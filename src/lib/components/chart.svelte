@@ -28,6 +28,38 @@ onMount(() => {
         },
       },
     },
+  let chart: Chart | null = null;
+
+  onMount(() => {
+    Chart.register(...registerables);
+
+    const ctx = document.getElementById("myChart") as HTMLCanvasElement;
+
+    chart = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: ["Red", "Blue", "Yellow", "Green"],
+        datasets: [
+          {
+            label: "# of Votes",
+            data: [12, 19, 3, 5, 2, 3],
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        layout: {
+          padding: {
+            left: 50,
+          },
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
   });
 });
 </script>
@@ -36,3 +68,5 @@ onMount(() => {
 <canvas id="myChart"></canvas>
 </div>
 
+  <canvas id="myChart"></canvas>
+</div>
