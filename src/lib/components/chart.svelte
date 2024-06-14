@@ -11,7 +11,7 @@
     const ctx = document.getElementById("myChart") as HTMLCanvasElement;
 
     chart = new Chart(ctx, {
-      type: "bar",
+      type: "line",
       data: {
         labels: ["Red", "Blue", "Yellow", "Green"],
         datasets: [
