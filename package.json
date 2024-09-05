@@ -33,6 +33,12 @@
 		"chart.js": "^4.4.3",
 		"date-picker-svelte": "^2.13.0",
 		"svelte-chartjs": "^3.1.5",
+		"svelte-datepicker": "^1.0.0",
 		"svelte-spa-router": "^4.0.1"
+	},
+	"pnpm": {
+		"patchedDependencies": {
+			"flowbite-svelte@0.46.1": "patches/flowbite-svelte@0.46.1.patch"
+		}
 	}
 }
