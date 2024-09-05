@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  flowbite-svelte@0.46.1:
+    hash: nk47bxa6agr5tmthu5unlyeogy
+    path: patches/flowbite-svelte@0.46.1.patch
+
 dependencies:
   chart.js:
     specifier: ^4.4.3
@@ -14,6 +19,9 @@ dependencies:
   svelte-chartjs:
     specifier: ^3.1.5
     version: 3.1.5(chart.js@4.4.3)(svelte@4.2.18)
+  svelte-datepicker:
+    specifier: ^1.0.0
+    version: 1.0.0
   svelte-spa-router:
     specifier: ^4.0.1
     version: 4.0.1
@@ -48,7 +56,7 @@ devDependencies:
     version: 2.3.0
   flowbite-svelte:
     specifier: ^0.46.1
-    version: 0.46.1(svelte@4.2.18)
+    version: 0.46.1(patch_hash=nk47bxa6agr5tmthu5unlyeogy)(svelte@4.2.18)
   flowbite-svelte-icons:
     specifier: ^1.6.1
     version: 1.6.1(svelte@4.2.18)(tailwind-merge@2.3.0)(tailwindcss@3.4.4)
@@ -1002,7 +1010,7 @@ packages:
       tailwindcss: 3.4.4
     dev: true
 
-  /flowbite-svelte@0.46.1(svelte@4.2.18):
+  /flowbite-svelte@0.46.1(patch_hash=nk47bxa6agr5tmthu5unlyeogy)(svelte@4.2.18):
     resolution: {integrity: sha512-GMQP4Fxn4mYu12XTNRbOHMYMklbP29sKFZUZYekryxhWak2zbSlI1ozhBtnrD2WDbFBPqZ64IcyButOkYpz+WQ==}
     engines: {node: '>=18.0.0', pnpm: '>=8.0.0'}
     peerDependencies:
@@ -1014,6 +1022,7 @@ packages:
       svelte: 4.2.18
       tailwind-merge: 2.3.0
     dev: true
+    patched: true
 
   /flowbite@2.3.0:
     resolution: {integrity: sha512-pm3JRo8OIJHGfFYWgaGpPv8E+UdWy0Z3gEAGufw+G/1dusaU/P1zoBLiQpf2/+bYAi+GBQtPVG86KYlV0W+AFQ==}
@@ -1718,6 +1727,10 @@ packages:
       - stylus
       - sugarss
     dev: true
+
+  /svelte-datepicker@1.0.0:
+    resolution: {integrity: sha512-c4B4GH4bEKY9e/ZKSFNR8dOxgHY8MB/U4XKv5r9YJ0xkpcJdzxzVD5ADn3y2bHvIJLLed/Ft4MfMzHLGfL8OXw==}
+    dev: false
 
   /svelte-hmr@0.16.0(svelte@4.2.18):
     resolution: {integrity: sha512-Gyc7cOS3VJzLlfj7wKS0ZnzDVdv3Pn2IuVeJPk9m2skfhcu5bq3wtIZyQGggr7/Iim5rH5cncyQft/kRLupcnA==}

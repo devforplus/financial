@@ -1,0 +1,150 @@
+diff --git a/dist/datepicker/Datepicker.svelte b/dist/datepicker/Datepicker.svelte
+index ecb1a419a4b71cfb4831120ce48197eb7c170c0a..070442a5e7ca5c03f8292d8944daebc3c9c261d2 100644
+--- a/dist/datepicker/Datepicker.svelte
++++ b/dist/datepicker/Datepicker.svelte
+@@ -1,53 +1,106 @@
+-<script context="module">"use strict";
++<script context="module">
++  "use strict";
+ </script>
+ 
+-<script>import Calendar from './Calender.svelte';
+-export let range = false;
+-// autoHide not working
+-// export let autoHide: boolean = false;
+-export let datepickerButtons = false;
+-export let datepickerFormat = 'mm/dd/yyyy';
+-export let datepickerOrientation = 'bottom';
+-export let datepickerTitle = 'Flowbite datepicker';
+-export let attribute = '';
+-export let inputClass = 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500';
+-$: setAttribute = (node, params) => {
++<script>
++  import Calendar from "./Calender.svelte";
++
++  export let range = false;
++  // autoHide not working
++  // export let autoHide: boolean = false;
++  export let datepickerButtons = false;
++  /** Moment.js 기반으로 해석하는데 사용함 (원래 데이터 처리 로직이 없어서, 직접 작성한 것) */
++  export let datepickerFormat = "mm/dd/yyyy";
++  export let datepickerOrientation = "bottom";
++  export let datepickerTitle = "Flowbite datepicker";
++  export let attribute = "";
++  export let inputClass =
++    "bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500";
++  $: setAttribute = (node, params) => {
+     if (params) {
+-        node.setAttribute(params, '');
++      node.setAttribute(params, "");
+     }
+-};
++  };
++
++  // added part (for data communication)
++  /** @type {string[]} */
++  export let values = [];
+ </script>
+ 
+ <svelte:head>
+-  <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.1/dist/flowbite.min.css" />
++  <link
++    rel="stylesheet"
++    href="https://unpkg.com/flowbite@1.5.1/dist/flowbite.min.css"
++  />
+   <script src="https://unpkg.com/flowbite@1.5.1/dist/datepicker.js"></script>
+ </svelte:head>
+ 
+ {#if range}
+   <div date-rangepicker class="flex items-center">
+     <div class="relative">
+-      <div class="flex absolute inset-y-0 start-0 items-center ps-3 pointer-events-none">
++      <div
++        class="flex absolute inset-y-0 start-0 items-center ps-3 pointer-events-none"
++      >
+         <Calendar />
+       </div>
+-      <input name="start" type="text" class={inputClass} placeholder="Select date start" />
++      <input
++        name="start"
++        type="text"
++        class={inputClass}
++        placeholder="Select date start"
++        bind:value={values[0]}
++      />
+     </div>
+     <span class="mx-4 text-gray-500">to</span>
+     <div class="relative">
+-      <div class="flex absolute inset-y-0 start-0 items-center ps-3 pointer-events-none">
++      <div
++        class="flex absolute inset-y-0 start-0 items-center ps-3 pointer-events-none"
++      >
+         <Calendar />
+       </div>
+-      <input name="end" type="text" class={inputClass} placeholder="Select date end" />
++      <input
++        name="end"
++        type="text"
++        class={inputClass}
++        placeholder="Select date end"
++        bind:value={values[1]}
++      />
+     </div>
+   </div>
+ {:else}
+   <div class="relative">
+-    <div class="flex absolute inset-y-0 start-0 items-center ps-3 pointer-events-none">
++    <div
++      class="flex absolute inset-y-0 start-0 items-center ps-3 pointer-events-none"
++    >
+       <Calendar />
+     </div>
+     {#if datepickerButtons}
+-      <input {...$$restProps} datepicker datepicker-buttons datepicker-format={datepickerFormat} datepicker-orientation={datepickerOrientation} datepicker-title={datepickerTitle} use:setAttribute={attribute} type="text" class={inputClass} placeholder="Select date" />
++      <input
++        {...$$restProps}
++        datepicker
++        datepicker-buttons
++        datepicker-format={datepickerFormat}
++        datepicker-orientation={datepickerOrientation}
++        datepicker-title={datepickerTitle}
++        use:setAttribute={attribute}
++        type="text"
++        class={inputClass}
++        placeholder="Select date"
++        bind:value={values[0]}
++      />
+     {:else}
+-      <input {...$$restProps} datepicker datepicker-format={datepickerFormat} datepicker-orientation={datepickerOrientation} datepicker-title={datepickerTitle} use:setAttribute={attribute} type="text" class={inputClass} placeholder="Select date" />
++      <input
++        {...$$restProps}
++        datepicker
++        datepicker-format={datepickerFormat}
++        datepicker-orientation={datepickerOrientation}
++        datepicker-title={datepickerTitle}
++        use:setAttribute={attribute}
++        type="text"
++        class={inputClass}
++        placeholder="Select date"
++        bind:value={values[0]}
++      />
+     {/if}
+     <slot />
+   </div>
+diff --git a/dist/datepicker/Datepicker.svelte.d.ts b/dist/datepicker/Datepicker.svelte.d.ts
+index cadadc4dcf46cd9ce82702372aef2d9f5297af86..f15e4f61701f28dc7a0a6f4c0a3ec8880c4949ce 100644
+--- a/dist/datepicker/Datepicker.svelte.d.ts
++++ b/dist/datepicker/Datepicker.svelte.d.ts
+@@ -20,6 +20,12 @@ declare const __propDef: {
+         datepickerTitle?: string | undefined;
+         attribute?: string | undefined;
+         inputClass?: string | undefined;
++        /** 
++         * ## `datepickerFormat`에 유효한 문자열 배열 
++         * 
++         * `range`가 `true`라면 2개, `range`가 `false`라면 1개의 값을 가짐
++         */
++        values: string[];
+     };
+     events: {
+         [evt: string]: CustomEvent<any>;
