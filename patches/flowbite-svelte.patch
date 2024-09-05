@@ -1,32 +1,30 @@
 diff --git a/dist/datepicker/Datepicker.svelte b/dist/datepicker/Datepicker.svelte
-index ecb1a419a4b71cfb4831120ce48197eb7c170c0a..070442a5e7ca5c03f8292d8944daebc3c9c261d2 100644
+index 786d297daf1e9af3b4f93465547e3acb54546049..4c6317f184bf61811b9571cc992806392acb8844 100644
 --- a/dist/datepicker/Datepicker.svelte
 +++ b/dist/datepicker/Datepicker.svelte
-@@ -1,53 +1,106 @@
--<script context="module">"use strict";
-+<script context="module">
-+  "use strict";
- </script>
+@@ -1,50 +1,124 @@
+ <script context="module"></script>
  
--<script>import Calendar from './Calender.svelte';
+-<script>import Calendar from "./Calender.svelte";
 -export let range = false;
--// autoHide not working
--// export let autoHide: boolean = false;
 -export let datepickerButtons = false;
--export let datepickerFormat = 'mm/dd/yyyy';
--export let datepickerOrientation = 'bottom';
--export let datepickerTitle = 'Flowbite datepicker';
--export let attribute = '';
--export let inputClass = 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500';
+-export let datepickerFormat = "mm/dd/yyyy";
+-export let datepickerOrientation = "bottom";
+-export let datepickerTitle = "Flowbite datepicker";
+-export let attribute = "";
+-export let inputClass = "bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500";
 -$: setAttribute = (node, params) => {
+-  if (params) {
+-    node.setAttribute(params, "");
+-  }
+-};
 +<script>
++  import { createEventDispatcher } from "svelte";
++
 +  import Calendar from "./Calender.svelte";
 +
 +  export let range = false;
-+  // autoHide not working
-+  // export let autoHide: boolean = false;
 +  export let datepickerButtons = false;
-+  /** Moment.js 기반으로 해석하는데 사용함 (원래 데이터 처리 로직이 없어서, 직접 작성한 것) */
 +  export let datepickerFormat = "mm/dd/yyyy";
 +  export let datepickerOrientation = "bottom";
 +  export let datepickerTitle = "Flowbite datepicker";
@@ -34,16 +32,27 @@ index ecb1a419a4b71cfb4831120ce48197eb7c170c0a..070442a5e7ca5c03f8292d8944daebc3
 +  export let inputClass =
 +    "bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500";
 +  $: setAttribute = (node, params) => {
-     if (params) {
--        node.setAttribute(params, '');
++    if (params) {
 +      node.setAttribute(params, "");
-     }
--};
++    }
 +  };
 +
-+  // added part (for data communication)
 +  /** @type {string[]} */
-+  export let values = [];
++  export let values = new Array(2);
++
++  /**
++   *
++   * @param index 업데이트 할 배열 인덱스
++   * @param value 업데이트 할 값
++   */
++  const updateValue = (index, value) => {
++    if (!(Number.isSafeInteger(index) && 0 <= index && index < 2)) return;
++
++    const newValues = [...values];
++    newValues[index] = value;
++    // NOTE: Svelte는 할당 연산에 대해서만 반응함
++    values = newValues;
++  };
  </script>
  
  <svelte:head>
@@ -70,7 +79,9 @@ index ecb1a419a4b71cfb4831120ce48197eb7c170c0a..070442a5e7ca5c03f8292d8944daebc3
 +        type="text"
 +        class={inputClass}
 +        placeholder="Select date start"
-+        bind:value={values[0]}
++        on:input|preventDefault={(ev) => {
++          updateValue(0, ev.currentTarget.value);
++        }}
 +      />
      </div>
      <span class="mx-4 text-gray-500">to</span>
@@ -87,7 +98,9 @@ index ecb1a419a4b71cfb4831120ce48197eb7c170c0a..070442a5e7ca5c03f8292d8944daebc3
 +        type="text"
 +        class={inputClass}
 +        placeholder="Select date end"
-+        bind:value={values[1]}
++        on:input|preventDefault={(ev) => {
++          updateValue(1, ev.currentTarget.value);
++        }}
 +      />
      </div>
    </div>
@@ -112,7 +125,9 @@ index ecb1a419a4b71cfb4831120ce48197eb7c170c0a..070442a5e7ca5c03f8292d8944daebc3
 +        type="text"
 +        class={inputClass}
 +        placeholder="Select date"
-+        bind:value={values[0]}
++        on:input|preventDefault={(ev) => {
++          updateValue(0, ev.currentTarget.value);
++        }}
 +      />
      {:else}
 -      <input {...$$restProps} datepicker datepicker-format={datepickerFormat} datepicker-orientation={datepickerOrientation} datepicker-title={datepickerTitle} use:setAttribute={attribute} type="text" class={inputClass} placeholder="Select date" />
@@ -126,25 +141,10 @@ index ecb1a419a4b71cfb4831120ce48197eb7c170c0a..070442a5e7ca5c03f8292d8944daebc3
 +        type="text"
 +        class={inputClass}
 +        placeholder="Select date"
-+        bind:value={values[0]}
++        on:input|preventDefault={(ev) => {
++          updateValue(0, ev.currentTarget.value);
++        }}
 +      />
      {/if}
      <slot />
    </div>
-diff --git a/dist/datepicker/Datepicker.svelte.d.ts b/dist/datepicker/Datepicker.svelte.d.ts
-index cadadc4dcf46cd9ce82702372aef2d9f5297af86..f15e4f61701f28dc7a0a6f4c0a3ec8880c4949ce 100644
---- a/dist/datepicker/Datepicker.svelte.d.ts
-+++ b/dist/datepicker/Datepicker.svelte.d.ts
-@@ -20,6 +20,12 @@ declare const __propDef: {
-         datepickerTitle?: string | undefined;
-         attribute?: string | undefined;
-         inputClass?: string | undefined;
-+        /** 
-+         * ## `datepickerFormat`에 유효한 문자열 배열 
-+         * 
-+         * `range`가 `true`라면 2개, `range`가 `false`라면 1개의 값을 가짐
-+         */
-+        values: string[];
-     };
-     events: {
-         [evt: string]: CustomEvent<any>;
