@@ -10,8 +10,9 @@ import { recordHandler } from "./records";
  * - 지출 예시: `-100`
  * - 수입 예시: `+100`
  */
+
 export const balance = derived(recordHandler, (records) => {
-	return records.reduce((returnValue, currentValue) => {
-		return returnValue + currentValue.money;
+	return records.reduce((pre_balance, currentValue) => {
+		return pre_balance + currentValue.money;
 	}, 0);
 });
