@@ -16,6 +16,9 @@ importers:
       chart.js:
         specifier: ^4.4.4
         version: 4.4.4
+      date-fns:
+        specifier: ^3.6.0
+        version: 3.6.0
       date-picker-svelte:
         specifier: ^2.13.0
         version: 2.13.0(svelte@4.2.19)
@@ -41,6 +44,9 @@ importers:
       '@neoconfetti/svelte':
         specifier: ^1.0.0
         version: 1.0.0
+      '@svelte-plugins/datepicker':
+        specifier: ^1.0.9
+        version: 1.0.9
       '@sveltejs/adapter-auto':
         specifier: ^3.2.4
         version: 3.2.4(@sveltejs/kit@2.5.26(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.19)(vite@5.4.3(@types/node@20.16.5)))(svelte@4.2.19)(vite@5.4.3(@types/node@20.16.5)))
@@ -398,6 +404,9 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@svelte-plugins/datepicker@1.0.9':
+    resolution: {integrity: sha512-HagVB8jLUwNFbwfAcJBNURN1QMQ+qAQQjLJPH97GMqI6auo7jIxOMiSIEWpx7SxTDewHJAlH1izQy3cwBVV8oQ==}
+
   '@sveltejs/adapter-auto@3.2.4':
     resolution: {integrity: sha512-a64AKYbfTUrVwU0xslzv1Jf3M8bj0IwhptaXmhgIkjXspBXhD0od9JiItQHchijpLMGdEDcYBlvqySkEawv6mQ==}
     peerDependencies:
@@ -576,6 +585,9 @@ packages:
     resolution: {integrity: sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==}
     engines: {node: '>=4'}
     hasBin: true
+
+  date-fns@3.6.0:
+    resolution: {integrity: sha512-fRHTG8g/Gif+kSh50gaGEdToemgfj74aRX3swtiouboip5JDLAyDE9F11nHMIcvOaXeOC6D7SpNhi7uFyB7Uww==}
 
   date-picker-svelte@2.13.0:
     resolution: {integrity: sha512-A0MMma1uv+/sL8MwgGuEPv/UJnhR6CmWg5aR8XhYeAX/I8+RQmQh+jpwIL0Z3/g4CGo9OhNZn+VicHpvnNCCtA==}
@@ -1484,6 +1496,8 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.21.2':
     optional: true
 
+  '@svelte-plugins/datepicker@1.0.9': {}
+
   '@sveltejs/adapter-auto@3.2.4(@sveltejs/kit@2.5.26(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.19)(vite@5.4.3(@types/node@20.16.5)))(svelte@4.2.19)(vite@5.4.3(@types/node@20.16.5)))':
     dependencies:
       '@sveltejs/kit': 2.5.26(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.19)(vite@5.4.3(@types/node@20.16.5)))(svelte@4.2.19)(vite@5.4.3(@types/node@20.16.5))
@@ -1679,6 +1693,8 @@ snapshots:
       source-map-js: 1.2.0
 
   cssesc@3.0.0: {}
+
+  date-fns@3.6.0: {}
 
   date-picker-svelte@2.13.0(svelte@4.2.19):
     dependencies:
