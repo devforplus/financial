@@ -22,9 +22,5 @@
       >
     </NavBrand>
     <NavHamburger />
-    <NavUl>
-      <NavLi href="/">Home</NavLi>
-      <NavLi href="/expense">Expense</NavLi>
-    </NavUl>
   </NavContainer>
 </Navbar>
