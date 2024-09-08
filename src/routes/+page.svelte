@@ -53,7 +53,6 @@
 
   $: formattedStartDate = formatDate(startDate);
   function addSelectedOption() {
-    //Todo: 이 함수에 수입 지출 태그에 따라 money 변수 값이 달라지게 적용하도록 추가
     // 정수 여부 검증
     if (!Number.isSafeInteger(inputNumber)) {
       window.alert("수익을 숫자로 입력해주세요!");
@@ -64,7 +63,7 @@
       window.alert("옵션을 선택해주세요!");
       return;
     }
-
+    // 지출,수익 탭에 따라 inputNumber가 다르게 저장
     if (selectedTab === "지출") {
       inputNumber = -Math.abs(inputNumber);
     } else if (selectedTab === "수입") {
@@ -81,6 +80,7 @@
 
     selectedOption = ""; // 선택 필드 초기화
     inputNumber = 0; // 선택 필드 초기화
+    console.log(balance);
   }
 </script>
 
