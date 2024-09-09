@@ -10,7 +10,9 @@ export const SingleRecordSchema = z.object({
 
 	// 입출금 액수: 정수로 제한
 	money: z.number().int(),
+	
 	// 처리 전 잔액
+	pre_balance : z.number().int(),
 
 	// 설명
 	description: z.string(),

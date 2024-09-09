@@ -18,10 +18,6 @@
   // 기본값: 현재 날짜를 DATE_SCHEMA에 맞게 포메팅한 문자열
   let dates: string[] = [];
 
-  $: {
-    console.log(dates);
-  }
-
   let selectedOption: IncomeTag | ExpenseTag | MiscTag | "" = ""; // 선택된 옵션을 저장할 변수
   /**
    * ### `input` 태그에 입력된 숫자 값
@@ -53,7 +49,7 @@
       description: "",
       tag: selectedOption || "미분류",
       money: inputNumber,
-      balance: 0,
+      pre_balance: 0,
     });
 
     selectedOption = ""; // 선택 필드 초기화
@@ -64,7 +60,7 @@
   <div class="input-group">
     <Datepicker
       datepickerButtons={true}
-      datepickerFormat={DATE_SCHEMA}
+      datepickerFormat={"yyyy/mm/dd"}
       bind:values={dates}
     />
     <input type="number" placeholder="수입 금액" bind:value={inputNumber} />
@@ -86,9 +82,9 @@
     <Button color="blue" on:click={addSelectedOption}>추가</Button>
   </div>
   <ul>
-    {#each $recordHandler as { date, description, tag, money, balance }}
+    {#each $recordHandler as { date, description, tag, money, pre_balance }}
       <li>
-        <p>{date} : {money}원 {tag} {description} 잔액 : {balance}</p>
+        <p>{date} : {money}원 {tag} {description} 잔액 : {pre_balance}</p>
       </li>
     {/each}
   </ul>
